@@ -1,3 +1,6 @@
+//I referenced https://steemit.com/utopian-io/@onepice/move-objects-according-to-the-mouse-position-with-phaser-3
+//for the code to find mouse position and check for mouse clicks
+
 // Rocket prefab
 class Rocket extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
@@ -18,9 +21,10 @@ class Rocket extends Phaser.GameObjects.Sprite {
             } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
                 this.x += this.moveSpeed;
             }
+            this.x = game.input.mousePointer.x;
         }
           // fire button
-        if (Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
+        if ((Phaser.Input.Keyboard.JustDown(keyF) || game.input.mousePointer.isDown) && !this.isFiring) {
             this.isFiring = true;
             this.sfxRocket.play();  // play sfx
         }
